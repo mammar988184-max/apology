@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I'm Sorry, Ummehani 💔</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            transition: background 0.8s ease;
+            overflow-x: hidden;
+        }
+
+        body.happy {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .container {
+            max-width: 600px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            animation: fadeIn 0.8s ease;
+            transition: all 0.8s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            font-size: 2.5em;
+            color: #333;
+            margin-bottom: 30px;
+            line-height: 1.3;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.02);
+            }
+        }
+
+        .message {
+            font-size: 1.2em;
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 40px;
+            text-align: left;
+        }
+
+        .message p {
+            margin-bottom: 15px;
+        }
+
+        .buttons-container {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        button {
+            padding: 15px 30px;
+            font-size: 1.1em;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+
+        .forgive-btn {
+            background: linear-gradient(135deg, #56ab2f 0%, #a8e063 100%);
+            color: white;
+        }
+
+        .forgive-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(86, 171, 47, 0.4);
+        }
+
+        .forgive-btn:active {
+            transform: translateY(0);
+        }
+
+        .no-forgive-btn {
+            background: linear-gradient(135deg, #eb3349 0%, #f45c43 100%);
+            color: white;
+            position: relative;
+        }
+
+        .no-forgive-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .thank-you-message {
+            display: none;
+            font-size: 1.5em;
+            color: #333;
+            line-height: 1.8;
+            animation: fadeIn 0.8s ease;
+        }
+
+        .thank-you-message.show {
+            display: block;
+        }
+
+        .apology-content.hide {
+            display: none;
+        }
+
+        @keyframes jump {
+            0%, 100% {
+                transform: translate(0, 0) scale(1);
+            }
+            50% {
+                transform: translate(var(--jump-x), var(--jump-y)) scale(1.1);
+            }
+        }
+
+        .no-forgive-btn.jumping {
+            animation: jump 0.3s ease;
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2em;
+            }
+
+            .message {
+                font-size: 1em;
+            }
+
+            button {
+                padding: 12px 25px;
+                font-size: 1em;
+            }
+
+            .container {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="apology-content" id="apologyContent">
+            <h1>Ummehani, I messed up 💔</h1>
+            <div class="message">
+                <p>I did not meant to hurt you, and I'm really really sorry. I know I messed up badly, and I feel terrible about hurting you.</p>
+                <p>I genuinely apologize from my heart. I love you a lot, and I never meant to make you feel forgotten or unimportant. You mean everything to me, and I'm so sorry for letting you down.</p>
+                <p>Please forgive me. I promise I'll do better and make it up to you. 💕</p>
+            </div>
+            <div class="buttons-container">
+                <button class="forgive-btn" id="forgiveBtn">I forgive you 💚</button>
+                <button class="no-forgive-btn" id="noForgiveBtn">No, I don't forgive you 😤</button>
+            </div>
+        </div>
+        <div class="thank-you-message" id="thankYouMessage">
+            <h1>Thank you so much 🥺❤️</h1>
+            <p style="margin-top: 20px; font-size: 1.2em;">I love you sooooo much Ummehani</p>
+            <p style="margin-top: 15px; font-size: 1.2em;">You mean everything to me 💕</p>
+        </div>
+    </div>
+
+    <script>
+        const forgiveBtn = document.getElementById('forgiveBtn');
+        const noForgiveBtn = document.getElementById('noForgiveBtn');
+        const apologyContent = document.getElementById('apologyContent');
+        const thankYouMessage = document.getElementById('thankYouMessage');
+        const body = document.body;
+
+        // Handle forgiveness button
+        forgiveBtn.addEventListener('click', function() {
+            apologyContent.classList.add('hide');
+            thankYouMessage.classList.add('show');
+            body.classList.add('happy');
+        });
+
+        // Handle "no forgive" button - make it move around
+        noForgiveBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Get button dimensions and container dimensions
+            const buttonRect = noForgiveBtn.getBoundingClientRect();
+            const container = document.querySelector('.container');
+            const containerRect = container.getBoundingClientRect();
+            
+            // Calculate random position within container bounds
+            const maxX = containerRect.width - buttonRect.width - 20;
+            const maxY = containerRect.height - buttonRect.height - 20;
+            
+            // Generate random position
+            const randomX = Math.random() * maxX;
+            const randomY = Math.random() * maxY;
+            
+            // Calculate jump distance (for animation)
+            const currentX = noForgiveBtn.offsetLeft;
+            const currentY = noForgiveBtn.offsetTop;
+            const jumpX = (randomX - currentX) * 2;
+            const jumpY = (randomY - currentY) * 2;
+            
+            // Set CSS variables for animation
+            noForgiveBtn.style.setProperty('--jump-x', jumpX + 'px');
+            noForgiveBtn.style.setProperty('--jump-y', jumpY + 'px');
+            
+            // Add jumping animation
+            noForgiveBtn.classList.add('jumping');
+            
+            // Move button to new position
+            setTimeout(() => {
+                noForgiveBtn.style.position = 'absolute';
+                noForgiveBtn.style.left = randomX + 'px';
+                noForgiveBtn.style.top = randomY + 'px';
+                noForgiveBtn.classList.remove('jumping');
+            }, 300);
+        });
+
+        // Also handle mouse hover on the "no forgive" button for extra playfulness
+        let hoverTimeout;
+        noForgiveBtn.addEventListener('mouseenter', function() {
+            hoverTimeout = setTimeout(() => {
+                const buttonRect = noForgiveBtn.getBoundingClientRect();
+                const container = document.querySelector('.container');
+                const containerRect = container.getBoundingClientRect();
+                
+                const maxX = containerRect.width - buttonRect.width - 20;
+                const maxY = containerRect.height - buttonRect.height - 20;
+                
+                const randomX = Math.random() * maxX;
+                const randomY = Math.random() * maxY;
+                
+                const currentX = noForgiveBtn.offsetLeft;
+                const currentY = noForgiveBtn.offsetTop;
+                const jumpX = (randomX - currentX) * 2;
+                const jumpY = (randomY - currentY) * 2;
+                
+                noForgiveBtn.style.setProperty('--jump-x', jumpX + 'px');
+                noForgiveBtn.style.setProperty('--jump-y', jumpY + 'px');
+                noForgiveBtn.classList.add('jumping');
+                
+                setTimeout(() => {
+                    noForgiveBtn.style.position = 'absolute';
+                    noForgiveBtn.style.left = randomX + 'px';
+                    noForgiveBtn.style.top = randomY + 'px';
+                    noForgiveBtn.classList.remove('jumping');
+                }, 300);
+            }, 500);
+        });
+
+        noForgiveBtn.addEventListener('mouseleave', function() {
+            clearTimeout(hoverTimeout);
+        });
+    </script>
+</body>
+</html>
